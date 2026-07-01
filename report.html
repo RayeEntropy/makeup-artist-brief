@@ -100,24 +100,6 @@ a { text-decoration: none; color: inherit; }
 .hero {
   padding: 72px 0 64px;
 }
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 22px;
-}
-.hero-eyebrow-line {
-  display: block;
-  width: 28px;
-  height: 1px;
-  background: var(--accent);
-  flex-shrink: 0;
-}
 .hero-title {
   font-family: 'Gowun Dodum', 'Noto Sans KR', sans-serif;
   font-size: clamp(46px, 5.5vw, 72px);
@@ -135,62 +117,23 @@ a { text-decoration: none; color: inherit; }
   margin-bottom: 56px;
 }
 
-/* ── Stat Cards ── */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-.stat {
+/* ══════════════════════════════
+   CONTEXT NOTE
+══════════════════════════════ */
+.context-note {
+  padding: 22px 26px;
   background: var(--card);
   border-radius: var(--radius-md);
-  padding: 22px 24px 20px;
+  border: 1px solid var(--accent-border);
   box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(255,255,255,0.85);
-  transition: transform 0.26s var(--ease), box-shadow 0.26s var(--ease);
 }
-.stat:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-}
-.stat-label {
-  font-size: 11px;
+.context-note p {
+  font-size: 12.5px;
   font-weight: 300;
-  color: var(--text-3);
-  letter-spacing: 0.4px;
-  margin-bottom: 10px;
-}
-.stat-value {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 40px;
-  font-weight: 300;
-  color: var(--text-1);
-  line-height: 1;
-  letter-spacing: -1px;
-}
-.stat-unit {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 15px;
-  font-weight: 300;
+  line-height: 1.8;
   color: var(--text-2);
-  letter-spacing: 0;
-  margin-left: 1px;
+  letter-spacing: 0.1px;
 }
-.stat-desc {
-  margin-top: 8px;
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--text-3);
-}
-
-/* ── Accent stat ── */
-.stat.accent {
-  background: var(--accent);
-}
-.stat.accent .stat-label { color: rgba(255,255,255,0.55); }
-.stat.accent .stat-value { color: #fff; }
-.stat.accent .stat-unit  { color: rgba(255,255,255,0.7); }
-.stat.accent .stat-desc  { color: rgba(255,255,255,0.5); }
 
 /* ══════════════════════════════
    SECTION DIVIDER
@@ -227,6 +170,27 @@ a { text-decoration: none; color: inherit; }
   gap: 22px;
 }
 
+/* ── On-hold divider inside grid ── */
+.on-hold-divider {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0 4px;
+  color: var(--text-3);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.on-hold-divider::before,
+.on-hold-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--accent-border);
+}
+
 /* ── Artist Card ── */
 .artist-card {
   background: var(--card);
@@ -252,6 +216,50 @@ a { text-decoration: none; color: inherit; }
 .artist-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
+}
+
+/* ── On-hold card ── */
+.artist-card.on-hold {
+  background: #D7D9DC;
+  border-color: rgba(0,0,0,0.06);
+  box-shadow: none;
+}
+.artist-card.on-hold:hover {
+  transform: none;
+  box-shadow: none;
+}
+.artist-card.on-hold .card-handle {
+  color: var(--text-3);
+}
+.artist-card.on-hold .studio-badge {
+  background: rgba(122,92,77,0.05);
+  border-color: rgba(122,92,77,0.08);
+  color: var(--text-3);
+}
+.artist-card.on-hold .card-reason li {
+  color: var(--text-3);
+}
+.artist-card.on-hold .card-reason li::before {
+  color: rgba(160,136,124,0.45);
+}
+.artist-card.on-hold .cta-link {
+  color: rgba(160,136,124,0.45);
+}
+
+.on-hold-badge {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: rgba(50,35,25,0.52);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-sm);
+  padding: 4px 9px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.88);
+  text-transform: uppercase;
 }
 
 /* ── Card Image ── */
@@ -310,31 +318,49 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.3;
 }
 .card-handle .at { color: var(--accent); }
-.card-realname {
+.studio-badge {
+  flex-shrink: 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-border);
+  border-radius: 40px;
+  padding: 4px 11px;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+/* ── Card Reason (list) ── */
+.card-reason {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.card-reason li {
   font-size: 12px;
   font-weight: 300;
-  color: var(--text-3);
-  margin-top: 3px;
+  line-height: 1.6;
+  color: var(--text-2);
+  letter-spacing: 0.1px;
+  padding-left: 14px;
+  position: relative;
 }
-.followers {
-  flex-shrink: 0;
-  text-align: right;
+.card-reason li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-light);
+  font-size: 11px;
+  line-height: 1.6;
 }
-.f-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
-  font-weight: 400;
-  color: var(--accent);
-  line-height: 1;
-  letter-spacing: -0.5px;
-}
-.f-label {
-  font-size: 10px;
-  font-weight: 300;
-  color: var(--text-3);
-  margin-top: 3px;
-  letter-spacing: 0.3px;
-}
+
 .card-hr {
   height: 1px;
   background: var(--accent-border);
@@ -413,7 +439,6 @@ a { text-decoration: none; color: inherit; }
 ══════════════════════════════ */
 @media (max-width: 960px) {
   .wrap { padding: 0 28px 72px; }
-  .stats { grid-template-columns: 1fr 1fr; }
   .artist-grid { grid-template-columns: 1fr; }
   .hero-title { font-size: 46px; }
 }
@@ -422,8 +447,6 @@ a { text-decoration: none; color: inherit; }
   .hero { padding: 48px 0 48px; }
   .hero-title { font-size: 36px; }
   .hero-sub { margin-bottom: 40px; }
-  .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .stat-value { font-size: 30px; }
   .section-head { padding: 44px 0 20px; }
   .page-footer { flex-direction: column; gap: 8px; text-align: center; }
 }
@@ -438,7 +461,7 @@ a { text-decoration: none; color: inherit; }
     <div class="nav-brand">Entropy Makeup</div>
     <div class="nav-right">
       <span class="nav-tag">내부 검토용</span>
-      <span class="nav-date">2026. 06. 30</span>
+      <span class="nav-date">2026. 07. 01</span>
     </div>
   </nav>
 
@@ -446,51 +469,43 @@ a { text-decoration: none; color: inherit; }
   <section class="hero">
     <h1 class="hero-title">메이크업 아티스트<br>협업 후보 리스트</h1>
     <p class="hero-sub">2026 세기연화 협업 &nbsp;·&nbsp; 항저우 K-소비재 판촉전 &nbsp;·&nbsp; 라이브 방송</p>
+    <div class="context-note">
+      <ul class="card-reason">
+        <li>K-POP 및 한류 인지도로, 유명 아이돌 담당 아티스트라는 사실만으로 소비자 신뢰·인지 형성</li>
+        <li>한국 뷰티샵 체험(피부과·헤어·메이크업·증명사진·퍼스널 컬러 등)이 중국인 여행 필수 코스로 정착</li>
+        <li>KITTS, ARTISI CHACHA 등 일부 샵은 중국인 예약 비중이 이미 상당히 높음</li>
+        <li>후보별 선정 사유에 유사한 논리가 일부 반복될 수 있음</li>
+      </ul>
+    </div>
   </section>
 
   <!-- ── SECTION 2 : ARTIST LIST ── -->
   <div class="section-head">
     <h2 class="section-title">후보 아티스트 프로필</h2>
-    <span class="section-meta">10 PROFILES</span>
+    <span class="section-meta">11 PROFILES · 2 HOLD</span>
   </div>
 
   <div class="artist-grid">
 
-    <!-- 01 da_yooni -->
+    <!-- 01 a_y0ung_0202 -->
     <div class="artist-card">
       <div class="card-img-wrap">
-        <img src="image1.png" alt="da_yooni">
+        <img src="image2.png" alt="a_y0ung_0202">
         <div class="card-num">01</div>
       </div>
       <div class="card-body">
         <div class="card-row-top">
           <div class="card-info">
-            <div class="card-handle"><span class="at">@</span>da_yooni</div>
-            <div class="card-realname">메이크업 아티스트 다운</div>
-          </div>
-        </div>
-        <div class="card-cta">
-          <a class="cta-link" href="http://instagram.com/da_yooni/" target="_blank">
-            인스타그램 보기
-            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 02 a_y0ung_0202 -->
-    <div class="artist-card">
-      <div class="card-img-wrap">
-        <img src="image2.png" alt="a_y0ung_0202">
-        <div class="card-num">02</div>
-      </div>
-      <div class="card-body">
-        <div class="card-row-top">
-          <div class="card-info">
             <div class="card-handle"><span class="at">@</span>a_y0ung_0202</div>
-            <div class="card-realname">JOY187 아영</div>
           </div>
+          <span class="studio-badge">JOY187</span>
         </div>
+        <ul class="card-reason">
+          <li>tripleS·MAMAMOO 전담 메이크업 아티스트</li>
+          <li>MAMAMOO는 실력 기반의 높은 중국 내 인지도 보유</li>
+          <li>tripleS는 샤오홍슈에서 "낯선 미녀는 tripleS일 수도"라는 밈이 있을 만큼 존재감</li>
+          <li>tripleS는 중국 국적 멤버 포함으로 그룹 인지도 일부 확보</li>
+        </ul>
         <div class="card-cta">
           <a class="cta-link" href="https://www.instagram.com/a_y0ung_0202/" target="_blank">
             인스타그램 보기
@@ -500,19 +515,24 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <!-- 03 siho__chu -->
+    <!-- 02 siho__chu -->
     <div class="artist-card">
       <div class="card-img-wrap">
         <img src="image3.png" alt="siho__chu">
-        <div class="card-num">03</div>
+        <div class="card-num">02</div>
       </div>
       <div class="card-body">
         <div class="card-row-top">
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>siho__chu</div>
-            <div class="card-realname">시호쌤</div>
           </div>
+          <span class="studio-badge">commune</span>
         </div>
+        <ul class="card-reason">
+          <li>쑹위치(宋雨琦) 전담 메이크업 아티스트</li>
+          <li>쑹위치는 중국 국적 아티스트로 현지 활동이 활발하며, 브랜드 행사 메이크업이 자주 화제</li>
+          <li>인스타그램보다 샤오홍슈 게시물 비중이 높아 중국 소비자 접점이 큼</li>
+        </ul>
         <div class="card-cta">
           <a class="cta-link" href="https://www.instagram.com/siho__chu/" target="_blank">
             인스타그램 보기
@@ -522,19 +542,24 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <!-- 04 bit.boot_j0y.h -->
+    <!-- 03 bit.boot_j0y.h -->
     <div class="artist-card">
       <div class="card-img-wrap">
         <img src="image4.png" alt="bit.boot_j0y.h">
-        <div class="card-num">04</div>
+        <div class="card-num">03</div>
       </div>
       <div class="card-body">
         <div class="card-row-top">
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>bit.boot_j0y.h</div>
-            <div class="card-realname">빗앤붓 (bit&boot) 윤하</div>
           </div>
+          <span class="studio-badge">빗앤붓</span>
         </div>
+        <ul class="card-reason">
+          <li>CORTIS·Hearts2Hearts 전담 메이크업 아티스트</li>
+          <li>CORTIS는 데뷔 초기임에도 중국 내 화제성이 이미 높음</li>
+          <li>H2H는 SM 출신 배경으로 일정 수준의 팬덤 기반 확보</li>
+        </ul>
         <div class="card-cta">
           <a class="cta-link" href="https://www.instagram.com/bit.boot_j0y.h/" target="_blank">
             인스타그램 보기
@@ -544,41 +569,22 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <!-- 05 jrmsgo -->
-    <div class="artist-card">
-      <div class="card-img-wrap">
-        <img src="image5.png" alt="jrmsgo">
-        <div class="card-num">05</div>
-      </div>
-      <div class="card-body">
-        <div class="card-row-top">
-          <div class="card-info">
-            <div class="card-handle"><span class="at">@</span>jrmsgo</div>
-            <div class="card-realname">윤소정 (SOJEONG)</div>
-          </div>
-        </div>
-        <div class="card-cta">
-          <a class="cta-link" href="https://www.instagram.com/jrmsgo/" target="_blank">
-            인스타그램 보기
-            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 06 makeup_jiwon -->
+    <!-- 04 makeup_jiwon -->
     <div class="artist-card">
       <div class="card-img-wrap">
         <img src="image6.png" alt="makeup_jiwon">
-        <div class="card-num">06</div>
+        <div class="card-num">04</div>
       </div>
       <div class="card-body">
         <div class="card-row-top">
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>makeup_jiwon</div>
-            <div class="card-realname">지원</div>
           </div>
+          <span class="studio-badge">commune</span>
         </div>
+        <ul class="card-reason">
+          <li>슈화(SHUHUA)·CHUU 전담 메이크업 아티스트</li>
+        </ul>
         <div class="card-cta">
           <a class="cta-link" href="https://www.instagram.com/makeup_jiwon/" target="_blank">
             인스타그램 보기
@@ -588,19 +594,23 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <!-- 07 jin_ni_makeup -->
+    <!-- 05 jin_ni_makeup -->
     <div class="artist-card">
       <div class="card-img-wrap">
         <img src="image7.png" alt="jin_ni_makeup">
-        <div class="card-num">07</div>
+        <div class="card-num">05</div>
       </div>
       <div class="card-body">
         <div class="card-row-top">
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>jin_ni_makeup</div>
-            <div class="card-realname">찌니언니 (HyeJin)</div>
           </div>
+          <span class="studio-badge">OuiOui</span>
         </div>
+        <ul class="card-reason">
+          <li>BABYMONSTER·Kep1er 전담 메이크업 아티스트</li>
+          <li>OuiOui 중국 왕훙 방문이 많음</li>
+        </ul>
         <div class="card-cta">
           <a class="cta-link" href="https://www.instagram.com/jin_ni_makeup/" target="_blank">
             인스타그램 보기
@@ -610,19 +620,24 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <!-- 08 __yuralee__ -->
+    <!-- 06 __yuralee__ -->
     <div class="artist-card">
       <div class="card-img-wrap">
         <img src="image8.png" alt="__yuralee__">
-        <div class="card-num">08</div>
+        <div class="card-num">06</div>
       </div>
       <div class="card-body">
         <div class="card-row-top">
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>__yuralee__</div>
-            <div class="card-realname">유라리 · OOHS 메이크업 부원장</div>
           </div>
+          <span class="studio-badge">oohs</span>
         </div>
+        <ul class="card-reason">
+          <li>ITZY 전담 메이크업 아티스트</li>
+          <li>ITZY는 중국 내 인지도 보유</li>
+          <li>류진(Ryujin) 메이크업이 샤오홍슈에서 화제가 된 바 있음</li>
+        </ul>
         <div class="card-cta">
           <a class="cta-link" href="https://www.instagram.com/__yuralee__/" target="_blank">
             인스타그램 보기
@@ -632,19 +647,24 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <!-- 09 haemin_commune -->
+    <!-- 07 haemin_commune -->
     <div class="artist-card">
       <div class="card-img-wrap">
         <img src="image9.png" alt="haemin_commune">
-        <div class="card-num">09</div>
+        <div class="card-num">07</div>
       </div>
       <div class="card-body">
         <div class="card-row-top">
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>haemin_commune</div>
-            <div class="card-realname">커뮤 메이크업 해민 원장</div>
           </div>
+          <span class="studio-badge">commune</span>
         </div>
+        <ul class="card-reason">
+          <li>(G)I-DLE·Hearts2Hearts 전담 메이크업 아티스트</li>
+          <li>샤오홍슈 팔로워 63.5만 명, 전 영상 중국어 자막 제공</li>
+          <li>중국 현지 메이크업 아티스트와 교류 콘텐츠 제작 이력 보유</li>
+        </ul>
         <div class="card-cta">
           <a class="cta-link" href="https://www.instagram.com/haemin_commune/" target="_blank">
             인스타그램 보기
@@ -654,21 +674,164 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <!-- 10 pear1ena -->
+    <!-- 08 pear1ena -->
     <div class="artist-card">
       <div class="card-img-wrap">
         <img src="image10.png" alt="pear1ena">
-        <div class="card-num">10</div>
+        <div class="card-num">08</div>
       </div>
       <div class="card-body">
         <div class="card-row-top">
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>pear1ena</div>
-            <div class="card-realname">이나 (Ena)</div>
           </div>
+          <span class="studio-badge">kitts</span>
         </div>
+        <ul class="card-reason">
+          <li>meovv·조미연·NMIXX 전담 메이크업 아티스트</li>
+          <li>예나(Yena) 메이크업이 샤오홍슈에서 화제가 된 이력 보유</li>
+          <li>kitts는 aespa 전담 샵으로 중국 내 인지도가 높음</li>
+        </ul>
         <div class="card-cta">
           <a class="cta-link" href="https://www.instagram.com/pear1ena/" target="_blank">
+            인스타그램 보기
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 happyrim -->
+    <div class="artist-card">
+      <div class="card-img-wrap">
+        <img src="image11.png" alt="happyrim">
+        <div class="card-num">09</div>
+      </div>
+      <div class="card-body">
+        <div class="card-row-top">
+          <div class="card-info">
+            <div class="card-handle"><span class="at">@</span>happyrim</div>
+          </div>
+          <span class="studio-badge">Efot</span>
+        </div>
+        <ul class="card-reason">
+          <li>높은 업로드 빈도와 체계적인 메이크업 튜토리얼 콘텐츠가 강점</li>
+          <li>차분한 이미지 기반의 신뢰도 높은 제품 추천 콘텐츠</li>
+          <li>팔로워 반응 우수</li>
+        </ul>
+        <div class="card-cta">
+          <a class="cta-link" href="https://www.instagram.com/happyrim/" target="_blank">
+            인스타그램 보기
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 h_umji -->
+    <div class="artist-card">
+      <div class="card-img-wrap">
+        <img src="image12.png" alt="h_umji">
+        <div class="card-num">10</div>
+      </div>
+      <div class="card-body">
+        <div class="card-row-top">
+          <div class="card-info">
+            <div class="card-handle"><span class="at">@</span>h_umji</div>
+          </div>
+          <span class="studio-badge">kitts</span>
+        </div>
+        <ul class="card-reason">
+          <li>김지원·NMIXX·meovv 전담 메이크업 아티스트</li>
+          <li>중국 유명 인플루언서(一枝南南) 방문 영상에서 직접 언급</li>
+          <li>kitts는 aespa 전담 샵으로 중국 내 인지도가 높음</li>
+        </ul>
+        <div class="card-cta">
+          <a class="cta-link" href="https://www.instagram.com/h_umji/" target="_blank">
+            인스타그램 보기
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 umiinii_ -->
+    <div class="artist-card">
+      <div class="card-img-wrap">
+        <img src="image13.png" alt="umiinii_">
+        <div class="card-num">11</div>
+      </div>
+      <div class="card-body">
+        <div class="card-row-top">
+          <div class="card-info">
+            <div class="card-handle"><span class="at">@</span>umiinii_</div>
+          </div>
+          <span class="studio-badge">kitts</span>
+        </div>
+        <ul class="card-reason">
+          <li>aespa·장원영(Wonyoung)·NMIXX 전담 메이크업 아티스트</li>
+          <li>kitts는 aespa 전담 샵으로 중국 내 인지도가 높음</li>
+        </ul>
+        <div class="card-cta">
+          <a class="cta-link" href="https://www.instagram.com/umiinii_/" target="_blank">
+            인스타그램 보기
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 검토 보류 구분선 ── -->
+    <div class="on-hold-divider">검토 보류</div>
+
+    <!-- 12 da_yooni — on hold -->
+    <div class="artist-card on-hold">
+      <div class="card-img-wrap">
+        <img src="image1.png" alt="da_yooni">
+        <div class="card-num">12</div>
+        <div class="on-hold-badge">보류</div>
+      </div>
+      <div class="card-body">
+        <div class="card-row-top">
+          <div class="card-info">
+            <div class="card-handle"><span class="at">@</span>da_yooni</div>
+          </div>
+          <span class="studio-badge">OuiOui</span>
+        </div>
+        <ul class="card-reason">
+          <li>IVE·BABYMONSTER 전담 메이크업 아티스트</li>
+          <li>개인 뷰티 브랜드 tinywonder 운영 — 타 브랜드 협업 가능 여부 불확실</li>
+        </ul>
+        <div class="card-cta">
+          <a class="cta-link" href="http://instagram.com/da_yooni/" target="_blank">
+            인스타그램 보기
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 jrmsgo — on hold -->
+    <div class="artist-card on-hold">
+      <div class="card-img-wrap">
+        <img src="image5.png" alt="jrmsgo">
+        <div class="card-num">13</div>
+        <div class="on-hold-badge">보류</div>
+      </div>
+      <div class="card-body">
+        <div class="card-row-top">
+          <div class="card-info">
+            <div class="card-handle"><span class="at">@</span>jrmsgo</div>
+          </div>
+          <span class="studio-badge">OuiOui</span>
+        </div>
+        <ul class="card-reason">
+          <li>배우·아이돌 동시 담당 메이크업 아티스트</li>
+          <li>개인 브랜드 ROWARD 운영 — 타 브랜드 협업 가능 여부 불확실</li>
+          <li>드라마 《21세기 대군부인》에서 IU·고윤정·안유진 메이크업 담당</li>
+        </ul>
+        <div class="card-cta">
+          <a class="cta-link" href="https://www.instagram.com/jrmsgo/" target="_blank">
             인스타그램 보기
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -681,7 +844,7 @@ a { text-decoration: none; color: inherit; }
   <!-- FOOTER -->
   <footer class="page-footer">
     <div class="footer-brand">Entropy Makeup</div>
-    <div class="footer-note">내부 검토용 · 무단 배포 금지 · 2026. 06. 30</div>
+    <div class="footer-note">내부 검토용 · 무단 배포 금지 · 2026. 07. 01</div>
   </footer>
 
 </div><!-- /wrap -->
@@ -701,17 +864,6 @@ a { text-decoration: none; color: inherit; }
   cards.forEach((card, i) => {
     card.style.transitionDelay = `${i % 2 * 0.07}s`;
     io.observe(card);
-  });
-
-  // Stat cards fade in immediately
-  document.querySelectorAll('.stat').forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.translate = '0 12px';
-    el.style.transition = `opacity 0.5s ${i * 0.08}s ease, translate 0.5s ${i * 0.08}s ease`;
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      el.style.opacity = '1';
-      el.style.translate = '0 0';
-    }));
   });
 </script>
 </body>
