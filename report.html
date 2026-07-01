@@ -262,6 +262,7 @@ a { text-decoration: none; color: inherit; }
   text-transform: uppercase;
 }
 
+
 /* ── Card Image ── */
 .card-img-wrap {
   position: relative;
@@ -318,7 +319,7 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.3;
 }
 .card-handle .at { color: var(--accent); }
-.studio-badge {
+.studio-badge, .cn-badge {
   flex-shrink: 0;
   font-family: 'DM Mono', monospace;
   font-size: 10px;
@@ -331,6 +332,11 @@ a { text-decoration: none; color: inherit; }
   padding: 4px 11px;
   white-space: nowrap;
   margin-top: 1px;
+}
+.badge-group {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 /* ── Card Reason (list) ── */
@@ -359,6 +365,13 @@ a { text-decoration: none; color: inherit; }
   color: var(--accent-light);
   font-size: 11px;
   line-height: 1.6;
+}
+.card-reason li.note-muted {
+  color: #9a9a9a;
+  font-style: italic;
+}
+.card-reason li.note-muted::before {
+  color: #9a9a9a;
 }
 
 .card-hr {
@@ -473,8 +486,9 @@ a { text-decoration: none; color: inherit; }
       <ul class="card-reason">
         <li>K-POP 및 한류 인지도로, 유명 아이돌 담당 아티스트라는 사실만으로 소비자 신뢰·인지 형성</li>
         <li>한국 뷰티샵 체험(피부과·헤어·메이크업·증명사진·퍼스널 컬러 등)이 중국인 여행 필수 코스로 정착</li>
-        <li>KITTS, ARTISI CHACHA 등 일부 샵은 중국인 예약 비중이 이미 상당히 높음</li>
-        <li>후보별 선정 사유에 유사한 논리가 일부 반복될 수 있음</li>
+        <li>현재 중국 내 인지도가 높은 메이크업샵으로 KITTS, ARTISI CHACHA, commune, OuiOui, Mallang, Normal Shop 등이 있음</li>
+        <li>아티스트 개인의 중국 인지도가 낮더라도 소속 메이크업샵 자체의 인지도가 더 높은 경우가 있음</li>
+        <li class="note-muted">후보별 선정 사유에 유사한 논리가 일부 반복될 수 있음</li>
       </ul>
     </div>
   </section>
@@ -503,7 +517,6 @@ a { text-decoration: none; color: inherit; }
         <ul class="card-reason">
           <li>tripleS·MAMAMOO 전담 메이크업 아티스트</li>
           <li>MAMAMOO는 실력 기반의 높은 중국 내 인지도 보유</li>
-          <li>tripleS는 샤오홍슈에서 "낯선 미녀는 tripleS일 수도"라는 밈이 있을 만큼 존재감</li>
           <li>tripleS는 중국 국적 멤버 포함으로 그룹 인지도 일부 확보</li>
         </ul>
         <div class="card-cta">
@@ -526,11 +539,14 @@ a { text-decoration: none; color: inherit; }
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>siho__chu</div>
           </div>
-          <span class="studio-badge">commune</span>
+          <div class="badge-group">
+            <span class="cn-badge">중국 인지도 높음</span>
+            <span class="studio-badge">commune</span>
+          </div>
         </div>
         <ul class="card-reason">
-          <li>쑹위치(宋雨琦) 전담 메이크업 아티스트</li>
-          <li>쑹위치는 중국 국적 아티스트로 현지 활동이 활발하며, 브랜드 행사 메이크업이 자주 화제</li>
+          <li>우기(宋雨琦) 전담 메이크업 아티스트</li>
+          <li>우기는 중국 국적 아티스트로 현지 활동이 활발하며, 브랜드 행사 메이크업이 자주 화제</li>
           <li>인스타그램보다 샤오홍슈 게시물 비중이 높아 중국 소비자 접점이 큼</li>
         </ul>
         <div class="card-cta">
@@ -658,7 +674,10 @@ a { text-decoration: none; color: inherit; }
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>haemin_commune</div>
           </div>
-          <span class="studio-badge">commune</span>
+          <div class="badge-group">
+            <span class="cn-badge">중국 인지도 높음</span>
+            <span class="studio-badge">commune</span>
+          </div>
         </div>
         <ul class="card-reason">
           <li>(G)I-DLE·Hearts2Hearts 전담 메이크업 아티스트</li>
@@ -712,7 +731,10 @@ a { text-decoration: none; color: inherit; }
           <div class="card-info">
             <div class="card-handle"><span class="at">@</span>happyrim</div>
           </div>
-          <span class="studio-badge">Efot</span>
+          <div class="badge-group">
+            <span class="cn-badge">중국 인지도 높음</span>
+            <span class="studio-badge">Efot</span>
+          </div>
         </div>
         <ul class="card-reason">
           <li>높은 업로드 빈도와 체계적인 메이크업 튜토리얼 콘텐츠가 강점</li>
